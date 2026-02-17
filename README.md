@@ -46,8 +46,12 @@ Modern property listing application built with React and TypeScript. Search vaca
    VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
    VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
    VITE_FIREBASE_APP_ID=your_app_id
+   # Optional – Firebase Functions region (default: europe-north1)
+   # VITE_FIREBASE_FUNCTIONS_REGION=europe-north1
    VITE_GOOGLE_MAPS_API_KEY=your_api_key
    VITE_CLOUDINARY_NAME=your_cloudinary_cloud_name
+   # Optional – SEO base URL (default: https://property-listing-react.netlify.app in production)
+   # VITE_APP_URL=https://property-listing-react.netlify.app
    ```
 
 4. Configure backend secret for Functions:
