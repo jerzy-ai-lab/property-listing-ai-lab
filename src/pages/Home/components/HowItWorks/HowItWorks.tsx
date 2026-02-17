@@ -1,10 +1,10 @@
 import { SECTION_HEADER_CONFIG, STEPS_CONFIG } from "./howItWorksConfig";
-import SectionHeader from "../SectionHeader/SectionHeader";
-import IconCard from "@/components/IconCard/IconCard";
+import { SectionHeader } from "../SectionHeader/SectionHeader";
+import { IconCard } from "@/components/IconCard/IconCard";
 import styles from "./HowItWorks.module.css";
 
 /* HowItWorks component */
-const HowItWorks = () => {
+export function HowItWorks() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -22,6 +22,4 @@ const HowItWorks = () => {
       </div>
     </section>
   );
-};
-
-export default HowItWorks;
+}

@@ -1,15 +1,14 @@
 .searchBox {
   display: flex;
   align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   background-color: var(--color-bg-panel);
   border: 1px solid var(--color-border-default);
   border-radius: var(--border-radius-md);
-  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   box-shadow: 0 4px 6px -1px var(--color-overlay-light);
   transition: all 0.2s ease;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 .searchBox:focus-within {
@@ -18,48 +17,49 @@
 }
 
 .icon {
-  color: var(--color-text-muted);
-  margin-right: 0.75rem;
   flex-shrink: 0;
+  margin-right: 0.75rem;
+  color: var(--color-text-muted);
 }
 
 .input {
   flex: 1;
+  min-width: 0;
+  padding: 0;
   border: none;
+  outline: none;
+  background: transparent;
   font-size: var(--font-size-base);
   color: var(--color-text-light);
-  background: transparent;
-  outline: none;
-  min-width: 0; /* Prevent flex overflow */
 }
 
 .input::placeholder {
   color: var(--color-text-muted);
 }
 
-.searchButton {
-  border-radius: var(--border-radius-md) !important;
-  padding-left: 1.5rem !important;
-  padding-right: 1.5rem !important;
-  background: var(--color-accent-blue) !important;
-  border: none !important;
-  color: #FFFFFF !important;
-  font-weight: 600;
+.searchBox .searchButton {
   display: flex;
   align-items: center;
-  transition: transform 0.1s ease, background-color 0.2s ease;
   height: 2.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border: none;
+  border-radius: var(--border-radius-md);
+  background: var(--color-accent-blue);
+  color: var(--color-bg-light);
+  font-weight: 600;
+  transition: transform 0.1s ease, background-color 0.2s ease;
 }
 
-.searchButton:hover {
-  background-color: var(--color-focus) !important;
+.searchBox .searchButton:hover {
+  background-color: var(--color-focus);
 }
 
-.searchButton:active {
+.searchBox .searchButton:active {
   transform: scale(0.98);
 }
 
-.searchButton:disabled {
+.searchBox .searchButton:disabled {
   opacity: 0.7;
   cursor: wait;
 }

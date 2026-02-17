@@ -1,4 +1,5 @@
-/* AddListing page configuration */
+import type { SuccessMessageConfig } from "@/types/successMessage";
+
 export type PageHeaderConfig = {
   title: string;
   subtitle: string;
@@ -9,10 +10,7 @@ export type AmenityOption = {
   label: string;
 };
 
-export type SuccessMessageConfig = {
-  title: string;
-  message: string;
-};
+export type { SuccessMessageConfig };
 
 export type CountryOption = {
   value: string;

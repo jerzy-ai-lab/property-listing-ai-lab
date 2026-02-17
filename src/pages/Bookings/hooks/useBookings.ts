@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   fetchUserBookings,
   cancelBooking as cancelBookingService,
-} from "@/services/bookingService";
+} from "@/api/bookings";
 import { useAuthContext } from "@/contexts/AuthContext";
 import type { Booking } from "@/types/booking";
 
@@ -15,67 +16,51 @@ export interface UseBookingsReturn {
   cancellingBookingId: string | null;
 }
 
-// Hook for fetching and managing user bookings
+const BOOKINGS_QUERY_KEY = ["bookings"] as const;
+
 export const useBookings = (): UseBookingsReturn => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [cancellingBookingId, setCancellingBookingId] = useState<string | null>(
-    null,
-  );
+  const queryClient = useQueryClient();
   const { user } = useAuthContext();
+  const [mutationError, setMutationError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!user) {
-      setBookings([]);
-      setIsLoading(false);
-      return;
-    }
+  const {
+    data: bookings = [],
+    isLoading,
+    error: queryError,
+  } = useQuery({
+    queryKey: [...BOOKINGS_QUERY_KEY, user?.uid ?? ""],
+    queryFn: () => fetchUserBookings(user!.uid),
+    enabled: !!user,
+  });
 
-    const loadBookings = async () => {
-      try {
-        setError(null);
-        setIsLoading(true);
-        const data = await fetchUserBookings(user.uid);
-        setBookings(data);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to load bookings",
-        );
-        setBookings([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadBookings();
-  }, [user]);
+  const cancelMutation = useMutation({
+    mutationFn: cancelBookingService,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: BOOKINGS_QUERY_KEY });
+      setMutationError(null);
+    },
+    onError: (err) => {
+      setMutationError(err instanceof Error ? err.message : "Failed to cancel booking");
+    },
+  });
 
   const cancelBooking = async (bookingId: string): Promise<void> => {
-    setCancellingBookingId(bookingId);
-    try {
-      setError(null);
-      await cancelBookingService(bookingId);
-
-      // Refresh bookings list after cancellation
-      if (user) {
-        const updatedBookings = await fetchUserBookings(user.uid);
-        setBookings(updatedBookings);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to cancel booking");
-      throw err;
-    } finally {
-      setCancellingBookingId(null);
-    }
+    setMutationError(null);
+    await cancelMutation.mutateAsync(bookingId);
   };
+
+  const queryErrorMessage =
+    queryError instanceof Error ? queryError.message : "Failed to load bookings";
+  const error = mutationError ?? (queryError ? queryErrorMessage : null);
 
   return {
     bookings,
     isLoading,
     error,
-    setError,
+    setError: setMutationError,
     cancelBooking,
-    cancellingBookingId,
+    cancellingBookingId: cancelMutation.isPending
+      ? (cancelMutation.variables as string) ?? null
+      : null,
   };
 };

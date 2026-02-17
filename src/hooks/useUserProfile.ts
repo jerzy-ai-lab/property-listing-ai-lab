@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { listenToUserProfile } from "@/services/userService";
+import { listenToUserProfile } from "@/api/users";
 import { useAuthContext } from "@/contexts/AuthContext";
 import type { UserProfile } from "@/types/user";
 

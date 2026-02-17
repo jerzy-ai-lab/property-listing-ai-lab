@@ -1,18 +1,18 @@
-import { useProperties } from "@/hooks/useProperties";
 import { useFeaturedProperties } from "../../hooks/useFeaturedProperties";
-import PropertyCard from "@/components/PropertyCard/PropertyCard";
-import SectionHeader from "../SectionHeader/SectionHeader";
-import Spinner from "@/components/Spinner/Spinner";
+import { PropertyCard } from "@/components/PropertyCard/PropertyCard";
+import { SectionHeader } from "../SectionHeader/SectionHeader";
 import { SECTION_HEADER_CONFIG } from "./featuredPropertiesConfig";
 import styles from "./FeaturedProperties.module.css";
+import type { Property } from "@/types/property";
+
+interface FeaturedPropertiesProps {
+  properties: Property[];
+}
 
 /* FeaturedProperties component */
-const FeaturedProperties = () => {
-  const { properties, isLoading, error } = useProperties();
+export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
   const { featuredProperties } = useFeaturedProperties(properties);
 
-  if (isLoading) return <Spinner />;
-  if (error) return null;
   if (featuredProperties.length === 0) return null;
 
   return (
@@ -31,6 +31,4 @@ const FeaturedProperties = () => {
       </div>
     </section>
   );
-};
-
-export default FeaturedProperties;
+}

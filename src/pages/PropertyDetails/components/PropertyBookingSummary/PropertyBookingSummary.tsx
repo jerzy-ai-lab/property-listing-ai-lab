@@ -1,6 +1,6 @@
 import type { Booking } from "@/types/booking";
 import { formatDate, formatPrice } from "@/utils/helpers";
-import Divider from "@/components/Divider/Divider";
+import { Divider } from "@/components/Divider/Divider";
 import styles from "./PropertyBookingSummary.module.css";
 
 interface PropertyBookingSummaryProps {
@@ -8,7 +8,7 @@ interface PropertyBookingSummaryProps {
 }
 
 /* PropertyBookingSummary component */
-const PropertyBookingSummary = ({ booking }: PropertyBookingSummaryProps) => {
+export function PropertyBookingSummary({ booking }: PropertyBookingSummaryProps) {
   const checkInDate = formatDate(booking.checkIn);
   const checkOutDate = formatDate(booking.checkOut);
 
@@ -49,6 +49,4 @@ const PropertyBookingSummary = ({ booking }: PropertyBookingSummaryProps) => {
       </div>
     </div>
   );
-};
-
-export default PropertyBookingSummary;
+}

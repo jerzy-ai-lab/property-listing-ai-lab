@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { getFunctions, httpsCallable } from "firebase/functions";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "@/config/firebaseConfig";
 import type {
   UseFormGetValues,
   UseFormSetValue,
   UseFormTrigger,
 } from "react-hook-form";
-import { app } from "@/config/firebaseConfig";
 import {
   addListingFormSchema,
   type AddListingFormInput,
-} from "../addListing.FormSchema";
+} from "../addListingFormSchema";
 
 type GenerateDescriptionRequest = {
   title: string;
@@ -59,7 +59,7 @@ export const useGenerateDescription = ({
       const generateDescription = httpsCallable<
         GenerateDescriptionRequest,
         GenerateDescriptionResponse
-      >(getFunctions(app, "europe-north1"), "generateDescription");
+      >(functions, "generateDescription");
 
       const { data } = await generateDescription({
         title: parsed.title,

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { getFunctions, httpsCallable } from "firebase/functions";
-import { app } from "@/config/firebaseConfig";
+import { useState, useDeferredValue } from "react";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "@/config/firebaseConfig";
 import type { SearchPropertyResult } from "@/types/searchPropertyResult";
 
 type SearchPropertiesRequest = {
@@ -14,6 +14,7 @@ type SearchPropertiesResponse = {
 export interface UseAISearchReturn {
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  deferredQuery: string;
   results: SearchPropertyResult[];
   suggestions: string[];
   isLoading: boolean;
@@ -25,6 +26,7 @@ export interface UseAISearchReturn {
 /* Hook for searching properties with AI */
 export const useAISearch = (): UseAISearchReturn => {
   const [searchQuery, setSearchQuery] = useState("");
+  const deferredQuery = useDeferredValue(searchQuery);
   const [results, setResults] = useState<SearchPropertyResult[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +49,7 @@ export const useAISearch = (): UseAISearchReturn => {
       const searchProperties = httpsCallable<
         SearchPropertiesRequest,
         SearchPropertiesResponse
-      >(getFunctions(app, "europe-north1"), "searchProperties");
+      >(functions, "searchProperties");
       const { data } = await searchProperties({ query: trimmedQuery });
       if (!Array.isArray(data.results)) {
         throw new Error(
@@ -82,6 +84,7 @@ export const useAISearch = (): UseAISearchReturn => {
   return {
     searchQuery,
     setSearchQuery,
+    deferredQuery,
     results,
     suggestions,
     isLoading,

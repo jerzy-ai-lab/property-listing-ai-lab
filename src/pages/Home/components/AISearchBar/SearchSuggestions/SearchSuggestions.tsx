@@ -5,7 +5,7 @@ interface SearchSuggestionsProps {
 }
 
 /* SearchSuggestions component */
-const SearchSuggestions = ({ suggestions }: SearchSuggestionsProps) => {
+export function SearchSuggestions({ suggestions }: SearchSuggestionsProps) {
   if (suggestions.length === 0) return null;
 
   return (
@@ -20,7 +20,5 @@ const SearchSuggestions = ({ suggestions }: SearchSuggestionsProps) => {
       </ul>
     </div>
   );
-};
-
-export default SearchSuggestions;
+}
 

@@ -1,14 +1,15 @@
 import { useAISearch } from "@/pages/Home/hooks/useAISearch";
-import SearchInput from "./SearchInput/SearchInput";
-import SearchSuggestions from "./SearchSuggestions/SearchSuggestions";
-import SearchResults from "./SearchResults/SearchResults";
+import { SearchInput } from "./SearchInput/SearchInput";
+import { SearchSuggestions } from "./SearchSuggestions/SearchSuggestions";
+import { SearchResults } from "./SearchResults/SearchResults";
 import styles from "./AISearchBar.module.css";
 
 /* AISearchBar component */
-const AISearchBar = () => {
+export function AISearchBar() {
   const {
     searchQuery,
     setSearchQuery,
+    deferredQuery,
     results,
     suggestions,
     isLoading,
@@ -35,10 +36,8 @@ const AISearchBar = () => {
       {showEmptyState && (
         <div
           className={styles.error}
-        >{`No properties found for: "${searchQuery}"`}</div>
+        >{`No properties found for: "${deferredQuery}"`}</div>
       )}
     </div>
   );
-};
-
-export default AISearchBar;
+}

@@ -32,10 +32,7 @@ const addListingFormSchema = z.object({
     .pipe(z.number().min(0, "Min 0").max(20, "Max 20")),
   guest: z.coerce.number().min(1, "Guests is required"),
   price: z.coerce.number().min(1, "Price is required"),
-  amenities: z
-    .array(z.string())
-    .min(1, "Amenities is required")
-    .min(3, "Select at least 3 amenities"),
+  amenities: z.array(z.string()).min(3, "Select at least 3 amenities"),
   image: z.string().min(1, "Property image is required"),
 });
 

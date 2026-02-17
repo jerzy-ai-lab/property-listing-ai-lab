@@ -2,7 +2,7 @@ import heroImage from "@/assets/images/hero.webp";
 import styles from "./HomeHeader.module.css";
 
 /* HomeHeader component */
-const HomeHeader = () => {
+export function HomeHeader() {
   return (
     <section className={styles.header}>
       <img
@@ -21,6 +21,4 @@ const HomeHeader = () => {
       </div>
     </section>
   );
-};
-
-export default HomeHeader;
+}

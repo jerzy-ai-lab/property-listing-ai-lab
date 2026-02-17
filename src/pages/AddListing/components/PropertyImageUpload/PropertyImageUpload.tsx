@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Upload } from "lucide-react";
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 import type { UsePropertyImageUploadReturn } from "../../hooks/usePropertyImageUpload";
 import fallbackImage from "@/assets/images/fallback.webp";
 import styles from "./PropertyImageUpload.module.css";
@@ -12,11 +12,11 @@ interface PropertyImageUploadProps {
 }
 
 /* PropertyImageUpload component */
-const PropertyImageUpload = ({
+export function PropertyImageUpload({
   imageUpload,
   imageUrl,
   onImageChange,
-}: PropertyImageUploadProps) => {
+}: PropertyImageUploadProps) {
   const { isUploading, uploadImage } = imageUpload;
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -76,6 +76,4 @@ const PropertyImageUpload = ({
       />
     </div>
   );
-};
-
-export default PropertyImageUpload;
+}

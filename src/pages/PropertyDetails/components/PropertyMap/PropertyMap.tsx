@@ -11,7 +11,7 @@ import { googleMapsConfig } from "@/config/googleMapsConfig";
 import { capitalizeFirst } from "@/utils/helpers";
 import { useGeocoder } from "../../hooks/useGeocoder";
 import { truncateText } from "@/utils/helpers";
-import Spinner from "@/components/Spinner/Spinner";
+import { Spinner } from "@/components/Spinner/Spinner";
 import styles from "./PropertyMap.module.css";
 
 interface PropertyMapProps {
@@ -19,7 +19,7 @@ interface PropertyMapProps {
 }
 
 /* PropertyMap component */
-const PropertyMap = ({ property }: PropertyMapProps) => {
+export function PropertyMap({ property }: PropertyMapProps) {
   const title = property.title ?? "";
   const image = property.image ?? "";
   const address = property.address;
@@ -111,6 +111,4 @@ const PropertyMap = ({ property }: PropertyMapProps) => {
       ) : null}
     </div>
   );
-};
-
-export default PropertyMap;
+}

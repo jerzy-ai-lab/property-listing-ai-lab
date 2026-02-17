@@ -1,7 +1,7 @@
 import type { Property } from "@/types/property";
 import { Star, ShieldCheck, MapPin } from "lucide-react";
 import fallbackImage from "@/assets/images/fallback.webp";
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 import { capitalizeFirst } from "@/utils/helpers";
 import styles from "./PropertyHeader.module.css";
 
@@ -9,7 +9,7 @@ interface PropertyHeaderProps {
   property: Property;
 }
 
-const PropertyHeader = ({ property }: PropertyHeaderProps) => {
+export function PropertyHeader({ property }: PropertyHeaderProps) {
   const title = property.title ?? "";
   const rating = property.rating ?? 0;
   const isSuperhost = property.superhost ?? false;
@@ -49,6 +49,4 @@ const PropertyHeader = ({ property }: PropertyHeaderProps) => {
       </div>
     </section>
   );
-};
-
-export default PropertyHeader;
+}

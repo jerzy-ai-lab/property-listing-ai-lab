@@ -1,29 +1,29 @@
 import { useEffect } from "react";
 import { Controller } from "react-hook-form";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import Label from "@/components/Label/Label";
-import Input from "@/components/Input/Input";
-import Select from "@/components/Select/Select";
-import Textarea from "@/components/Textarea/Textarea";
-import Divider from "@/components/Divider/Divider";
-import FormError from "@/components/FormError/FormError";
-import Button from "@/components/Button/Button";
-import Toast from "@/components/Toast/Toast";
-import SuccessMessage from "@/components/SuccesMessage/SuccesMessage";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
+import { Label } from "@/components/Label/Label";
+import { Input } from "@/components/Input/Input";
+import { Select } from "@/components/Select/Select";
+import { Textarea } from "@/components/Textarea/Textarea";
+import { Divider } from "@/components/Divider/Divider";
+import { FormError } from "@/components/FormError/FormError";
+import { Button } from "@/components/Button/Button";
+import { Toast } from "@/components/Toast/Toast";
+import { SuccessMessage } from "@/components/SuccessMessage/SuccessMessage";
 import {
   PAGE_HEADER_CONFIG,
   AMENITIES_OPTIONS,
   SUCCESS_MESSAGE,
   COUNTRY_OPTIONS,
-} from "./addListingConfig";
+} from "@/constants/addListing";
 import { useAddListingForm } from "./hooks/useAddListingForm";
 import { useGenerateDescription } from "./hooks/useGenerateDescription";
 import { usePropertyImageUpload } from "./hooks/usePropertyImageUpload";
-import PropertyImageUpload from "./components/PropertyImageUpload/PropertyImageUpload";
+import { PropertyImageUpload } from "./components/PropertyImageUpload/PropertyImageUpload";
 import styles from "./AddListing.module.css";
 
 /* AddListing page component */
-const AddListing = () => {
+export function AddListing() {
   const {
     register,
     control,
@@ -280,6 +280,4 @@ const AddListing = () => {
       </form>
     </div>
   );
-};
-
-export default AddListing;
+}

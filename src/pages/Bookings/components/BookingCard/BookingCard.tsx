@@ -3,8 +3,8 @@ import type { Booking } from "@/types/booking";
 import { CalendarDays, Users } from "lucide-react";
 import { formatDate, formatPrice } from "@/utils/helpers";
 import { truncateText } from "@/utils/helpers";
-import Button from "@/components/Button/Button";
-import Divider from "@/components/Divider/Divider";
+import { Button } from "@/components/Button/Button";
+import { Divider } from "@/components/Divider/Divider";
 import styles from "./BookingCard.module.css";
 
 interface BookingCardProps {
@@ -14,11 +14,11 @@ interface BookingCardProps {
 }
 
 /* BookingCard component */
-const BookingCard = ({
+export function BookingCard({
   booking,
   onCancel,
   isCancelling = false,
-}: BookingCardProps) => {
+}: BookingCardProps) {
   const {
     id,
     propertyId,
@@ -100,6 +100,4 @@ const BookingCard = ({
       </div>
     </li>
   );
-};
-
-export default BookingCard;
+}

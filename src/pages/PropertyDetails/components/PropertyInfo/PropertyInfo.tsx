@@ -1,6 +1,6 @@
 import type { Property } from "@/types/property";
 import { Home, Users } from "lucide-react";
-import Divider from "@/components/Divider/Divider";
+import { Divider } from "@/components/Divider/Divider";
 import fallbackImage from "@/assets/images/fallback.webp";
 import { capitalizeFirst } from "@/utils/helpers";
 import { AMENITIES_CONFIG } from "./propertyInfoConfig";
@@ -36,7 +36,7 @@ const parseDescriptionSections = (rawDescription: string): string[] => {
 };
 
 /* PropertyInfo component */
-const PropertyInfo = ({ property }: PropertyInfoProps) => {
+export function PropertyInfo({ property }: PropertyInfoProps) {
   const hostName = capitalizeFirst(property.host?.name || "");
   const hostImage = property.host?.image || fallbackImage;
   const bedrooms = property.capacity?.bedroom;
@@ -102,6 +102,4 @@ const PropertyInfo = ({ property }: PropertyInfoProps) => {
       </div>
     </div>
   );
-};
-
-export default PropertyInfo;
+}

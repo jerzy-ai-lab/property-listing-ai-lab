@@ -1,6 +1,6 @@
 import type { ChangeEvent } from "react";
-import ToggleSwitch from "@/components/ToggleSwitch/ToggleSwitch";
-import Select from "@/components/Select/Select";
+import { ToggleSwitch } from "@/components/ToggleSwitch/ToggleSwitch";
+import { Select } from "@/components/Select/Select";
 import { GUEST_OPTIONS } from "./propertyListFilterPanelConfig";
 import styles from "./PropertyListFilterPanel.module.css";
 
@@ -12,12 +12,12 @@ interface PropertyListFilterPanelProps {
 }
 
 /* PropertyListFilterPanel component */
-const PropertyListFilterPanel = ({
+export function PropertyListFilterPanel({
   isSuperhost,
   onSuperhostChange,
   guestCount,
   onGuestCountChange,
-}: PropertyListFilterPanelProps) => {
+}: PropertyListFilterPanelProps) {
   return (
     <div className={styles.filterPanel}>
       <div className={styles.rightFilters}>
@@ -46,6 +46,4 @@ const PropertyListFilterPanel = ({
       </div>
     </div>
   );
-};
-
-export default PropertyListFilterPanel;
+}

@@ -1,5 +1,5 @@
 import type { SearchPropertyResult } from "@/types/searchPropertyResult";
-import PropertyCard from "@/components/PropertyCard/PropertyCard";
+import { PropertyCard } from "@/components/PropertyCard/PropertyCard";
 import styles from "./SearchResults.module.css";
 
 interface SearchResultsProps {
@@ -7,7 +7,7 @@ interface SearchResultsProps {
 }
 
 /* SearchResults component */
-const SearchResults = ({ results }: SearchResultsProps) => {
+export function SearchResults({ results }: SearchResultsProps) {
   if (results.length === 0) return null;
 
   return (
@@ -20,6 +20,4 @@ const SearchResults = ({ results }: SearchResultsProps) => {
       </ul>
     </div>
   );
-};
-
-export default SearchResults;
+}

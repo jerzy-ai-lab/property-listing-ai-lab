@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 import { onIdTokenChanged } from "firebase/auth";
 import type { User } from "firebase/auth";
 import { auth } from "@/config/firebaseConfig";
-import { updateUser } from "@/services/authService";
+import { updateUser } from "@/api/auth";
 
 export interface AuthContextValue {
   user: User | null;

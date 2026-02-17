@@ -1,12 +1,12 @@
 import { useMemo, useEffect } from "react";
 import clsx from "clsx";
 import { Controller } from "react-hook-form";
-import Label from "@/components/Label/Label";
-import Select from "@/components/Select/Select";
-import Button from "@/components/Button/Button";
-import Divider from "@/components/Divider/Divider";
-import FormError from "@/components/FormError/FormError";
-import DatePickerInput from "../DatePickerInput/DatePickerInput";
+import { Label } from "@/components/Label/Label";
+import { Select } from "@/components/Select/Select";
+import { Button } from "@/components/Button/Button";
+import { Divider } from "@/components/Divider/Divider";
+import { FormError } from "@/components/FormError/FormError";
+import { DatePickerInput } from "../DatePickerInput/DatePickerInput";
 import { formatPrice, getStartOfDay } from "@/utils/helpers";
 import { usePropertyBookedDates } from "../../hooks/usePropertyBookedDates";
 import type { useBookingForm } from "../../hooks/useBookingForm";
@@ -28,12 +28,12 @@ interface PropertyBookingPanelProps {
 }
 
 /* PropertyBookingPanel component */
-const PropertyBookingPanel = ({
+export function PropertyBookingPanel({
   bookingForm,
   propertyId,
   maxGuests,
   onSendInquiry,
-}: PropertyBookingPanelProps) => {
+}: PropertyBookingPanelProps) {
   const {
     register,
     control,
@@ -200,6 +200,4 @@ const PropertyBookingPanel = ({
       )}
     </div>
   );
-};
-
-export default PropertyBookingPanel;
+}

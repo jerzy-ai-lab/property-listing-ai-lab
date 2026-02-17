@@ -1,14 +1,14 @@
 import { useBookings } from "./hooks/useBookings";
-import BookingCard from "./components/BookingCard/BookingCard";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import EmptyState from "@/components/EmptyState/EmptyState";
-import Spinner from "@/components/Spinner/Spinner";
-import Toast from "@/components/Toast/Toast";
+import { BookingCard } from "./components/BookingCard/BookingCard";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { Spinner } from "@/components/Spinner/Spinner";
+import { Toast } from "@/components/Toast/Toast";
 import { PAGE_HEADER_CONFIG } from "./bookingsConfig";
 import styles from "./Bookings.module.css";
 
 /* Bookings page component */
-const Bookings = () => {
+export function Bookings() {
   const {
     bookings,
     isLoading,
@@ -49,6 +49,4 @@ const Bookings = () => {
       )}
     </div>
   );
-};
-
-export default Bookings;
+}

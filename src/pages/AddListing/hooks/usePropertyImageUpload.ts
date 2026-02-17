@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { uploadPropertyImage } from "@/services/imageService";
+import { uploadPropertyImage } from "@/api/images";
 
 export interface UsePropertyImageUploadReturn {
   isUploading: boolean;

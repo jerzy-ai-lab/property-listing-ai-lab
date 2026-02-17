@@ -6,13 +6,11 @@ interface SectionHeaderProps {
 }
 
 /* SectionHeader component */
-const SectionHeader = ({ title, subtitle }: SectionHeaderProps) => {
+export function SectionHeader({ title, subtitle }: SectionHeaderProps) {
   return (
     <div className={styles.header}>
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.subtitle}>{subtitle}</p>
     </div>
   );
-};
-
-export default SectionHeader;
+}

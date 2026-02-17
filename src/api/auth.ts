@@ -14,7 +14,6 @@ import {
 } from "firebase/auth";
 import { auth } from "@/config/firebaseConfig";
 
-// Helper function for mapping Firebase errors to user friendly messages
 export const getAuthErrorMessage = (error: unknown): string => {
   const code = (error as { code?: string })?.code;
 
@@ -39,122 +38,91 @@ export const getAuthErrorMessage = (error: unknown): string => {
       return "Popup blocked. Please allow popups for this site";
     case "auth/account-exists-with-different-credential":
       return "An account already exists with this email";
-
-    // Network and system errors
     case "auth/network-request-failed":
       return "Network error. Please check your connection";
     case "auth/internal-error":
       return "An internal error occurred. Please try again";
-
+    case "auth/unauthorized-domain":
+      return "This domain is not authorized. Add it in Firebase Console → Authentication → Authorized domains.";
+    case "auth/operation-not-allowed":
+      return "Google sign-in is not enabled. Enable it in Firebase Console → Authentication → Sign-in method.";
+    case "auth/cancelled-popup-request":
+      return "Sign in cancelled. Please try again.";
     default:
       return "An error occurred. Please try again";
   }
 };
 
-// Service function for user sign up with Firebase Auth
 export const signUp = async (
   email: string,
-  password: string
+  password: string,
 ): Promise<UserCredential> => {
   const userCredential = await createUserWithEmailAndPassword(
     auth,
     email,
-    password
+    password,
   );
-  const user = userCredential.user;
-
-  await sendEmailVerification(user);
-
+  await sendEmailVerification(userCredential.user);
   return userCredential;
 };
 
-// Service function for user sign in with Firebase Auth
 export const signIn = async (
   email: string,
-  password: string
+  password: string,
 ): Promise<UserCredential> => {
-  const userCredential = await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-
-  return userCredential;
+  return signInWithEmailAndPassword(auth, email, password);
 };
 
-// Service function for user sign out with Firebase Auth
 export const signOut = async (): Promise<void> => {
   await firebaseSignOut(auth);
 };
 
-// Service function for user reset password with Firebase Auth
 export const resetPassword = async (email: string): Promise<void> => {
   await sendPasswordResetEmail(auth, email);
 };
 
-// Service function for updating user data with Firebase Auth
 export const updateUser = async (): Promise<User | null> => {
   const currentUser = auth.currentUser;
-  if (!currentUser) {
-    return null;
-  }
+  if (!currentUser) return null;
   await currentUser.reload();
   await currentUser.getIdToken(true);
   return currentUser;
 };
 
-// Service function for user email verification with Firebase Auth
 export const emailVerification = async (): Promise<void> => {
   const currentUser = auth.currentUser;
-  if (!currentUser) {
-    throw new Error("No user is currently signed in");
-  }
+  if (!currentUser) throw new Error("No user is currently signed in");
   await sendEmailVerification(currentUser);
 };
 
-// Service function for Google Sign-In
 export const signInWithGoogle = async (): Promise<UserCredential> => {
   const provider = new GoogleAuthProvider();
   provider.addScope("profile");
   provider.addScope("email");
-
-  const result = await signInWithPopup(auth, provider);
-  return result;
+  return signInWithPopup(auth, provider);
 };
 
-// Service function for checking if user signed in with Google
 export const isGoogleUser = (user: User): boolean => {
   return user.providerData.some(
-    (provider) => provider.providerId === "google.com"
+    (provider) => provider.providerId === "google.com",
   );
 };
 
-// Service function for reauthenticating user before sensitive actions
-export const reauthenticateUser = async (
-  password?: string
-): Promise<void> => {
+export const reauthenticateUser = async (password?: string): Promise<void> => {
   const currentUser = auth.currentUser;
-  if (!currentUser) {
-    throw new Error("No user is currently signed in");
-  }
+  if (!currentUser) throw new Error("No user is currently signed in");
 
-  const isGoogle = isGoogleUser(currentUser);
-
-  if (isGoogle) {
+  if (isGoogleUser(currentUser)) {
     const provider = new GoogleAuthProvider();
     provider.addScope("profile");
     provider.addScope("email");
     await reauthenticateWithPopup(currentUser, provider);
   } else {
-    if (!password) {
-      throw new Error("Password is required for email/password users");
-    }
-    if (!currentUser.email) {
-      throw new Error("User email is not available");
-    }
+    if (!password) throw new Error("Password is required for email/password users");
+    if (!currentUser.email) throw new Error("User email is not available");
     const credential = EmailAuthProvider.credential(
       currentUser.email,
-      password
+      password,
     );
     await reauthenticateWithCredential(currentUser, credential);
   }
@@ -163,12 +131,23 @@ export const reauthenticateUser = async (
   await currentUser.getIdToken(true);
 };
 
-// Service function for deleting user account
 export const deleteUserAccount = async (): Promise<void> => {
   const currentUser = auth.currentUser;
-  if (!currentUser) {
-    throw new Error("No user is currently signed in");
-  }
-
+  if (!currentUser) throw new Error("No user is currently signed in");
   await currentUser.delete();
+};
+
+/** Abstraction layer for easier testing and backend swapping. */
+export const authApi = {
+  signUp,
+  signIn,
+  signOut,
+  resetPassword,
+  updateUser,
+  emailVerification,
+  signInWithGoogle,
+  reauthenticateUser,
+  deleteUserAccount,
+  getAuthErrorMessage,
+  isGoogleUser,
 };

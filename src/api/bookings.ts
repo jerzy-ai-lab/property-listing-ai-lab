@@ -14,7 +14,6 @@ import {
   Timestamp,
 } from "firebase/firestore";
 
-// Helper function for mapping Firestore document to Booking
 const mapDocumentToBooking = (document: {
   id: string;
   data: () => Record<string, unknown> | undefined;
@@ -37,7 +36,6 @@ const mapDocumentToBooking = (document: {
   };
 };
 
-// Service function for creating a booking in Firestore
 export const createBooking = async (
   uid: string,
   bookingData: CreateBooking,
@@ -64,7 +62,6 @@ export const createBooking = async (
   return bookingRef.id;
 };
 
-// Service function for fetching user bookings from Firestore
 export const fetchUserBookings = async (uid: string): Promise<Booking[]> => {
   const bookingsQuery = query(
     collection(database, "bookings"),
@@ -74,7 +71,6 @@ export const fetchUserBookings = async (uid: string): Promise<Booking[]> => {
   const querySnapshot = await getDocs(bookingsQuery);
   const bookings = querySnapshot.docs.map(mapDocumentToBooking);
 
-  // Sort by checkIn date descending (newest first) - client-side sorting
   return bookings.sort((a, b) => {
     const dateA = a.checkIn.toMillis();
     const dateB = b.checkIn.toMillis();
@@ -82,13 +78,11 @@ export const fetchUserBookings = async (uid: string): Promise<Booking[]> => {
   });
 };
 
-// Service function for cancelling a booking
 export const cancelBooking = async (bookingId: string): Promise<void> => {
   const bookingRef = doc(database, "bookings", bookingId);
   await deleteDoc(bookingRef);
 };
 
-// Service function for fetching booked date ranges for a property
 export const fetchPropertyBookedDates = async (
   propertyId: string,
 ): Promise<{ from: Date; to: Date }[]> => {
@@ -106,7 +100,6 @@ export const fetchPropertyBookedDates = async (
   }));
 };
 
-// Service function for checking property availability
 export const checkPropertyAvailability = async (
   propertyId: string,
   checkIn: Date,
@@ -120,12 +113,10 @@ export const checkPropertyAvailability = async (
   const querySnapshot = await getDocs(bookingsQuery);
   const bookings = querySnapshot.docs.map(mapDocumentToBooking);
 
-  // Check for date overlaps
   for (const booking of bookings) {
     const bookingCheckIn = booking.checkIn.toDate();
     const bookingCheckOut = booking.checkOut.toDate();
 
-    // Check if there's an overlap
     if (
       (checkIn >= bookingCheckIn && checkIn < bookingCheckOut) ||
       (checkOut > bookingCheckIn && checkOut <= bookingCheckOut) ||
@@ -136,4 +127,22 @@ export const checkPropertyAvailability = async (
   }
 
   return true;
+};
+
+/** Abstraction layer for easier testing and backend swapping. */
+export const bookingsApi = {
+  create: (
+    uid: string,
+    bookingData: CreateBooking,
+    property: Property,
+  ) => createBooking(uid, bookingData, property),
+  fetchUserBookings: (uid: string) => fetchUserBookings(uid),
+  cancel: (bookingId: string) => cancelBooking(bookingId),
+  fetchPropertyBookedDates: (propertyId: string) =>
+    fetchPropertyBookedDates(propertyId),
+  checkPropertyAvailability: (
+    propertyId: string,
+    checkIn: Date,
+    checkOut: Date,
+  ) => checkPropertyAvailability(propertyId, checkIn, checkOut),
 };

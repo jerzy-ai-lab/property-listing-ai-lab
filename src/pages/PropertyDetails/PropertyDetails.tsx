@@ -1,30 +1,28 @@
-import { useParams, useLocation } from "react-router-dom";
-import { useProperty } from "./hooks/useProperty";
+import { useLoaderData, useLocation } from "react-router-dom";
+import { Seo } from "@/components/Seo/Seo";
 import { useBookingForm } from "./hooks/useBookingForm";
-import PropertyHeader from "./components/PropertyHeader/PropertyHeader";
-import PropertyInfo from "./components/PropertyInfo/PropertyInfo";
-import PropertyBookingPanel from "./components/PropertyBookingPanel/PropertyBookingPanel";
-import PropertyBookingSummary from "./components/PropertyBookingSummary/PropertyBookingSummary";
-import Divider from "@/components/Divider/Divider";
+import { PropertyHeader } from "./components/PropertyHeader/PropertyHeader";
+import { PropertyInfo } from "./components/PropertyInfo/PropertyInfo";
+import { PropertyBookingPanel } from "./components/PropertyBookingPanel/PropertyBookingPanel";
+import { PropertyBookingSummary } from "./components/PropertyBookingSummary/PropertyBookingSummary";
+import { Divider } from "@/components/Divider/Divider";
 import type { Booking } from "@/types/booking";
-import PropertyMap from "./components/PropertyMap/PropertyMap";
-import Spinner from "@/components/Spinner/Spinner";
-import SuccessMessage from "@/components/SuccesMessage/SuccesMessage";
-import Toast from "@/components/Toast/Toast";
+import { PropertyMap } from "./components/PropertyMap/PropertyMap";
+import { SuccessMessage } from "@/components/SuccessMessage/SuccessMessage";
+import { Toast } from "@/components/Toast/Toast";
 import { SUCCESS_MESSAGE } from "./propertyDetailsConfig";
 import styles from "./PropertyDetails.module.css";
 
+type PropertyLoaderData = { property: import("@/types/property").Property };
+
 /* PropertyDetails page */
-const PropertyDetails = () => {
-  const { id } = useParams<{ id: string }>();
+export function PropertyDetails() {
+  const { property } = useLoaderData() as PropertyLoaderData;
   const location = useLocation();
   const bookingFromState = (location.state as { booking?: Booking } | null)
     ?.booking;
 
-  const { property, isLoading, error } = useProperty(id);
-
-  // Hook must be called unconditionally to follow Rules of Hooks
-  const bookingForm = useBookingForm(property ?? null);
+  const bookingForm = useBookingForm(property);
 
   const handleSendInquiry = () => {
     // Placeholder for inquiry functionality
@@ -34,12 +32,18 @@ const PropertyDetails = () => {
   const isUserBookingForThisProperty =
     bookingFromState && property && bookingFromState.propertyId === property.id;
 
-  if (isLoading) return <Spinner />;
-  if (error) return <div>Error: {error}</div>;
-  if (!property) return <div>Property not found</div>;
-
   return (
     <div className={styles.propertyDetails}>
+      <Seo
+        title={property.title}
+        description={
+          (property.description && property.description.slice(0, 160)) ||
+          `${property.title} – ${property.address.city}, ${property.address.country}. ${property.capacity.guest} guests, ${property.capacity.bedroom} bedrooms.`
+        }
+        canonicalPath={`/property/${property.id}`}
+        image={property.image}
+        type="article"
+      />
       {/* === Error Toast === */}
       {bookingForm.error && (
         <Toast
@@ -75,6 +79,4 @@ const PropertyDetails = () => {
       <PropertyMap property={property} />
     </div>
   );
-};
-
-export default PropertyDetails;
+}

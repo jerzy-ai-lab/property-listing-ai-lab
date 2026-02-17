@@ -1,17 +1,18 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookingFormSchema, type BookingFormData } from "../bookingFormSchema";
 import {
   createBooking,
   checkPropertyAvailability,
-} from "@/services/bookingService";
+} from "@/api/bookings";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { calculateNights } from "@/utils/helpers";
 import type { Property } from "@/types/property";
 
 // Hook for booking form
 export const useBookingForm = (property: Property | null) => {
+  const [isPending, startTransition] = useTransition();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuthContext();
@@ -58,7 +59,7 @@ export const useBookingForm = (property: Property | null) => {
     return nights * pricePerNight;
   }, [nights, pricePerNight]);
 
-  const onSubmit = async (data: BookingFormData) => {
+  const onSubmit = (data: BookingFormData) => {
     if (!property) {
       setError("Property not found");
       return;
@@ -71,38 +72,45 @@ export const useBookingForm = (property: Property | null) => {
 
     setError(null);
 
-    try {
-      const isAvailable = await checkPropertyAvailability(
-        property.id,
-        data.checkIn,
-        data.checkOut,
-      );
+    return new Promise<void>((resolve) => {
+      startTransition(async () => {
+        try {
+          const isAvailable = await checkPropertyAvailability(
+            property.id,
+            data.checkIn,
+            data.checkOut,
+          );
 
-      if (!isAvailable) {
-        setError("This property is not available for the selected dates");
-        return;
-      }
+          if (!isAvailable) {
+            setError("This property is not available for the selected dates");
+            resolve();
+            return;
+          }
 
-      await createBooking(
-        user.uid,
-        {
-          propertyId: property.id,
-          checkIn: data.checkIn,
-          checkOut: data.checkOut,
-          guests: Number(data.guests),
-        },
-        property,
-      );
+          await createBooking(
+            user.uid,
+            {
+              propertyId: property.id,
+              checkIn: data.checkIn,
+              checkOut: data.checkOut,
+              guests: Number(data.guests),
+            },
+            property,
+          );
 
-      reset();
-      setIsSuccess(true);
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Failed to create booking. Please try again.",
-      );
-    }
+          reset();
+          setIsSuccess(true);
+        } catch (err) {
+          setError(
+            err instanceof Error
+              ? err.message
+              : "Failed to create booking. Please try again.",
+          );
+        } finally {
+          resolve();
+        }
+      });
+    });
   };
 
   return {
@@ -116,7 +124,7 @@ export const useBookingForm = (property: Property | null) => {
     nights,
     pricePerNight,
     totalPrice,
-    isLoading: isSubmitting,
+    isLoading: isSubmitting || isPending,
     error,
     setError,
     isSuccess,

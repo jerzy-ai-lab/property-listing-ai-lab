@@ -1,8 +1,7 @@
+import type { SuccessMessageConfig } from "@/types/successMessage";
+
 /* PropertyDetails page configuration */
-export type SuccessMessageConfig = {
-  title: string;
-  message: string;
-};
+export type { SuccessMessageConfig };
 
 export const SUCCESS_MESSAGE: SuccessMessageConfig = {
   title: "Booking Successful!",

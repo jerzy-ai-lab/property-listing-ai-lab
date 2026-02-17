@@ -12,15 +12,13 @@ import type {
   UserProfile,
   UpdateUserProfile,
 } from "@/types/user";
-import { updateUserPropertiesHostInfo } from "@/services/propertyService";
+import { updateUserPropertiesHostInfo } from "@/api/properties";
 
-// Service function for creating basic user profile in Firestore database
 export const createUserProfile = async (
   uid: string,
   profileData: CreateUserProfile,
 ): Promise<void> => {
   const userRef = doc(database, "users", uid);
-
   await setDoc(
     userRef,
     {
@@ -31,14 +29,12 @@ export const createUserProfile = async (
   );
 };
 
-// Service function for real-time user profile subscription
 export const listenToUserProfile = (
   uid: string,
   onProfileChange: (profile: UserProfile | null) => void,
   onProfileError: (error: unknown) => void,
 ) => {
   const docRef = doc(database, "users", uid);
-
   return onSnapshot(
     docRef,
     (docSnap) => {
@@ -62,7 +58,6 @@ export const listenToUserProfile = (
   );
 };
 
-// Service function for updating user profile in Firestore database
 export const updateUserProfile = async (
   uid: string,
   profileData: UpdateUserProfile,
@@ -83,14 +78,12 @@ export const updateUserProfile = async (
     const userData = userDoc.data();
     const firstName = (userData.firstName as string | null) ?? "";
     const profileImage = (userData.profileImage as string | null) ?? "";
-
     if (firstName || profileImage) {
       await updateUserPropertiesHostInfo(uid, firstName, profileImage);
     }
   }
 };
 
-// Service function for updating user profile image
 export const updateUserProfileImage = async (
   uid: string,
   profileImageUrl: string,
@@ -108,15 +101,29 @@ export const updateUserProfileImage = async (
   if (userDoc.exists()) {
     const userData = userDoc.data();
     const firstName = (userData.firstName as string | null) ?? "";
-
     if (firstName || profileImageUrl) {
       await updateUserPropertiesHostInfo(uid, firstName, profileImageUrl);
     }
   }
 };
 
-// Service function for deleting user profile from Firestore database
 export const deleteUserProfile = async (uid: string): Promise<void> => {
   const userRef = doc(database, "users", uid);
   await deleteDoc(userRef);
+};
+
+/** Abstraction layer for easier testing and backend swapping. */
+export const usersApi = {
+  createUserProfile: (
+    uid: string,
+    profileData: CreateUserProfile,
+  ) => createUserProfile(uid, profileData),
+  listenToUserProfile,
+  updateUserProfile: (
+    uid: string,
+    profileData: UpdateUserProfile,
+  ) => updateUserProfile(uid, profileData),
+  updateUserProfileImage: (uid: string, profileImageUrl: string) =>
+    updateUserProfileImage(uid, profileImageUrl),
+  deleteUserProfile: (uid: string) => deleteUserProfile(uid),
 };

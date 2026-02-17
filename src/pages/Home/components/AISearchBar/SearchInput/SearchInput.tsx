@@ -1,5 +1,5 @@
 import { Search, Sparkles } from "lucide-react";
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 import styles from "./SearchInput.module.css";
 
 interface SearchInputProps {
@@ -10,12 +10,12 @@ interface SearchInputProps {
 }
 
 /* SearchInput component - Enhanced with AI visual cues */
-const SearchInput = ({
+export function SearchInput({
   value,
   onChange,
   onSearch,
   isLoading,
-}: SearchInputProps) => {
+}: SearchInputProps) {
   return (
     <div className={styles.searchBox}>
       {/* Visual cue: AI Icon instead of generic Search if valid query exists */}
@@ -51,6 +51,4 @@ const SearchInput = ({
       </Button>
     </div>
   );
-};
-
-export default SearchInput;
+}
