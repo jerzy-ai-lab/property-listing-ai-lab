@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signOut, getAuthErrorMessage } from "@/services/authService";
+import { signOut, getAuthErrorMessage } from "@/api/auth";
 
 export interface UseSignOutReturn {
   handleSignOut: () => Promise<void>;

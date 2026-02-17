@@ -1,5 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
-import styles from "./SuccesMessage.module.css";
+import styles from "./SuccessMessage.module.css";
 
 interface SuccessMessageProps {
   title: string;
@@ -7,7 +7,7 @@ interface SuccessMessageProps {
 }
 
 /* SuccessMessage component */
-const SuccessMessage = ({ title, message }: SuccessMessageProps) => {
+export function SuccessMessage({ title, message }: SuccessMessageProps) {
   return (
     <div className={styles.successMessage}>
       <CheckCircle2 className={styles.icon} aria-hidden="true" />
@@ -15,6 +15,4 @@ const SuccessMessage = ({ title, message }: SuccessMessageProps) => {
       <p className={styles.message}>{message}</p>
     </div>
   );
-};
-
-export default SuccessMessage;
+}

@@ -1,18 +1,18 @@
 import { useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X, LogIn, LogOut } from "lucide-react";
-import { MAIN_LINKS, AUTHENTICATED_LINKS, AUTH_LINK } from "./navbarConfig";
+import { MAIN_LINKS, AUTHENTICATED_LINKS, AUTH_LINK } from "@/constants/navbar";
 import { useSidebarMenu } from "./hooks/useSidebarMenu";
 import { useSignOut } from "./hooks/useSignOut";
 import { useAuthContext } from "@/contexts/AuthContext";
 import clsx from "clsx";
 import logo from "@/assets/icons/logo.svg";
-import Divider from "../Divider/Divider";
-import Toast from "../Toast/Toast";
+import { Divider } from "../Divider/Divider";
+import { Toast } from "../Toast/Toast";
 import styles from "./Navbar.module.css";
 
 /* Navbar component */
-const Navbar = () => {
+export function Navbar() {
   const { user } = useAuthContext();
   const { isOpen, toggleMenu, closeMenu } = useSidebarMenu();
   const { handleSignOut, isSigningOut, error, setError } = useSignOut();
@@ -175,6 +175,4 @@ const Navbar = () => {
       )}
     </>
   );
-};
-
-export default Navbar;
+}
