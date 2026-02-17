@@ -23,7 +23,7 @@ export async function retrieveCandidates({
   const vectorQuery = db.collection("properties").findNearest({
     vectorField: "embedding",
     queryVector,
-    limit,
+    limit: limit * 2, // Fetch double to improve post-filtering quality
     distanceMeasure: "COSINE",
     distanceResultField: "vectorDistance",
   });

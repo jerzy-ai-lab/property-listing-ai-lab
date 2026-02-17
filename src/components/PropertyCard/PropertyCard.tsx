@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { truncateText } from "@/utils/helpers";
 import { capitalizeFirst } from "@/utils/helpers";
+import fallbackImage from "@/assets/images/fallback.webp";
 import styles from "./PropertyCard.module.css";
 
 type PropertyCardProperty = Pick<
@@ -27,22 +28,22 @@ interface PropertyCardProps {
 /* PropertyCard component */
 const PropertyCard = ({ property }: PropertyCardProps) => {
   const id = property.id;
-  const image = property.image ?? "";
-  const title = property.title ?? "";
-  const description = property.description ?? "";
+  const image = property.image || fallbackImage;
+  const title = property.title ?? "Untitled Property";
+  const description = property.description ?? "No description available.";
   const price = property.price ?? 0;
   const rating = property.rating ?? 0;
   const isSuperhost = property.superhost ?? false;
   const bedrooms = property.capacity?.bedroom ?? 0;
   const guests = property.capacity?.guest ?? 0;
-  const location = property.address?.city ?? "";
+  const location = property.address?.city ?? "Unknown location";
 
   return (
     <li className={styles.card}>
       <Link to={`/property/${id}`} className={styles.link}>
         {/* === Image section === */}
         <div className={styles.imageWrapper}>
-          <img src={image} alt={title} className={styles.image} />
+          <img src={image} alt={title} className={styles.image} loading="lazy" />
 
           {isSuperhost && (
             <span className={clsx(styles.badge, styles.badgeLeft)}>

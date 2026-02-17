@@ -1,6 +1,5 @@
-import { Search } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
 import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
 import styles from "./SearchInput.module.css";
 
 interface SearchInputProps {
@@ -10,7 +9,7 @@ interface SearchInputProps {
   isLoading: boolean;
 }
 
-/* SearchInput component */
+/* SearchInput component - Enhanced with AI visual cues */
 const SearchInput = ({
   value,
   onChange,
@@ -19,24 +18,42 @@ const SearchInput = ({
 }: SearchInputProps) => {
   return (
     <div className={styles.searchBox}>
-      <Search className={styles.icon} />
-      <Input
+      {/* Visual cue: AI Icon instead of generic Search if valid query exists */}
+      <Search className={styles.icon} aria-hidden="true" />
+      
+      <input
         type="text"
         id="search-input"
-        variant="transparent"
-        placeholder="Search with AI: Norway cabin, 2 bedrooms, wifi"
+        className={styles.input} // Direct styling for better control than generic Input
+        placeholder="Describe your dream stay (e.g., 'Cozy cabin near Odda with sauna')"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && onSearch()}
+        aria-label="AI Property Search"
+        aria-describedby="search-hint"
       />
+      
       <Button
         variant="secondary"
         onClick={onSearch}
         type="button"
         disabled={isLoading}
+        className={styles.searchButton}
+        aria-busy={isLoading}
       >
-        {isLoading ? "Searching..." : "Search"}
+        {isLoading ? (
+          "Thinking..."
+        ) : (
+          <>
+            <Sparkles size={16} style={{ marginRight: 8 }} />
+            Ask AI
+          </>
+        )}
       </Button>
+      
+      <span id="search-hint" className="sr-only">
+        Enter a description of the property you are looking for. The AI will interpret your needs.
+      </span>
     </div>
   );
 };

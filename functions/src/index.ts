@@ -18,7 +18,7 @@ initializeApp();
 
 const db = getFirestore();
 
-const VECTOR_SEARCH_LIMIT = 15;
+const VECTOR_SEARCH_LIMIT = 50;
 const VECTOR_MAX_RESULTS = 5;
 const VECTOR_ABSOLUTE_DISTANCE_THRESHOLD = 0.35;
 const VECTOR_RELATIVE_DISTANCE_MARGIN = 0.08;
