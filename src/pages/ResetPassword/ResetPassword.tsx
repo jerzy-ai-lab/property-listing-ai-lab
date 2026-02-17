@@ -1,16 +1,17 @@
+import { Seo } from "@/components/Seo/Seo";
 import { PAGE_HEADER_CONFIG, SUCCESS_MESSAGE } from "./resetPasswordConfig";
 import { useResetPasswordForm } from "./hooks/useResetPasswordForm";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import Label from "@/components/Label/Label";
-import Input from "@/components/Input/Input";
-import Button from "@/components/Button/Button";
-import FormError from "@/components/FormError/FormError";
-import SuccessMessage from "@/components/SuccesMessage/SuccesMessage";
-import Toast from "@/components/Toast/Toast";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
+import { Label } from "@/components/Label/Label";
+import { Input } from "@/components/Input/Input";
+import { Button } from "@/components/Button/Button";
+import { FormError } from "@/components/FormError/FormError";
+import { SuccessMessage } from "@/components/SuccessMessage/SuccessMessage";
+import { Toast } from "@/components/Toast/Toast";
 import styles from "./ResetPassword.module.css";
 
 /* ResetPassword page component */
-const ResetPassword = () => {
+export function ResetPassword() {
   const {
     register,
     handleSubmit,
@@ -23,6 +24,7 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.resetPassword}>
+      <Seo title="Reset Password" description="Reset your account password" />
       {/* === Error Toast === */}
       {error && (
         <Toast message={error} variant="error" onClose={() => setError(null)} />
@@ -65,6 +67,4 @@ const ResetPassword = () => {
       </form>
     </div>
   );
-};
-
-export default ResetPassword;
+}

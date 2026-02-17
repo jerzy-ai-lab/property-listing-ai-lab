@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo/Seo";
 import { PAGE_HEADER_CONFIG, SUCCESS_MESSAGE } from "./signUpConfig";
 import { useSignUpForm } from "./hooks/useSignUpForm";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import Label from "@/components/Label/Label";
-import Input from "@/components/Input/Input";
-import PasswordInput from "@/components/PasswordInput/PasswordInput";
-import Button from "@/components/Button/Button";
-import Divider from "@/components/Divider/Divider";
-import FormError from "@/components/FormError/FormError";
-import Toast from "@/components/Toast/Toast";
-import SuccessMessage from "@/components/SuccesMessage/SuccesMessage";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
+import { Label } from "@/components/Label/Label";
+import { Input } from "@/components/Input/Input";
+import { PasswordInput } from "@/components/PasswordInput/PasswordInput";
+import { Button } from "@/components/Button/Button";
+import { Divider } from "@/components/Divider/Divider";
+import { FormError } from "@/components/FormError/FormError";
+import { Toast } from "@/components/Toast/Toast";
+import { SuccessMessage } from "@/components/SuccessMessage/SuccessMessage";
 import styles from "./SignUp.module.css";
 
 /* SignUp page component */
-const SignUp = () => {
+export function SignUp() {
   const {
     register,
     handleSubmit,
@@ -27,6 +28,7 @@ const SignUp = () => {
 
   return (
     <div className={styles.signUp}>
+      <Seo title="Sign Up" description="Create your account" />
       {/* === Error Toast === */}
       {error && (
         <Toast message={error} variant="error" onClose={() => setError(null)} />
@@ -96,6 +98,4 @@ const SignUp = () => {
       </form>
     </div>
   );
-};
-
-export default SignUp;
+}

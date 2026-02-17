@@ -9,13 +9,11 @@ interface LabelProps {
 }
 
 /* Label component */
-const Label = ({ htmlFor, children, required, className }: LabelProps) => {
+export function Label({ htmlFor, children, required, className }: LabelProps) {
   return (
     <label htmlFor={htmlFor} className={clsx(styles.label, className)}>
       {children}
       {required && <span className={styles.required}>*</span>}
     </label>
   );
-};
-
-export default Label;
+}

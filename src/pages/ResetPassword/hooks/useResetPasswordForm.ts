@@ -6,7 +6,7 @@ import {
   resetPasswordFormSchema,
   type ResetPasswordFormData,
 } from "../resetPasswordFormSchema";
-import { resetPassword, getAuthErrorMessage } from "@/services/authService";
+import { resetPassword, getAuthErrorMessage } from "@/api/auth";
 
 // Hook for reset password form
 export const useResetPasswordForm = () => {

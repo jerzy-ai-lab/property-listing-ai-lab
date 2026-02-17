@@ -11,8 +11,8 @@ import {
   getAuthErrorMessage,
   isGoogleUser,
   reauthenticateUser,
-} from "@/services/authService";
-import { deleteUserProfile } from "@/services/userService";
+} from "@/api/auth";
+import { deleteUserProfile } from "@/api/users";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 // Hook for delete account form

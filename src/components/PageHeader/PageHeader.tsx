@@ -8,17 +8,15 @@ interface PageHeaderProps {
 }
 
 /* PageHeader component */
-const PageHeader = ({
+export function PageHeader({
   title,
   subtitle,
   variant = "center",
-}: PageHeaderProps) => {
+}: PageHeaderProps) {
   return (
     <div className={styles.header}>
       <h1 className={clsx(styles.title, styles[variant])}>{title}</h1>
       {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
     </div>
   );
-};
-
-export default PageHeader;
+}

@@ -7,8 +7,6 @@ interface DividerProps {
 }
 
 /* Divider component */
-const Divider = ({ variant = "default", children }: DividerProps) => {
+export function Divider({ variant = "default", children }: DividerProps) {
   return <div className={clsx(styles[variant])}>{children}</div>;
-};
-
-export default Divider;
+}

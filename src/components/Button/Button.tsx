@@ -18,7 +18,7 @@ interface ButtonProps {
 }
 
 /* Button component */
-const Button = ({
+export function Button({
   children,
   variant = "primary",
   className,
@@ -26,7 +26,7 @@ const Button = ({
   type = "button",
   disabled = false,
   ...rest
-}: ButtonProps) => {
+}: ButtonProps) {
   return (
     <button
       type={type}
@@ -38,6 +38,4 @@ const Button = ({
       {children}
     </button>
   );
-};
-
-export default Button;
+}

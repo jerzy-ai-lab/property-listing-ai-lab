@@ -1,16 +1,22 @@
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { Seo } from "@/components/Seo/Seo";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 import {
   PAGE_HEADER_CONFIG,
   DESCRIPTION_CONFIG,
   FEATURES_CONFIG,
 } from "./aboutConfig";
-import IconCard from "@/components/IconCard/IconCard";
+import { IconCard } from "@/components/IconCard/IconCard";
 import styles from "./About.module.css";
 
 /* About page */
-const About = () => {
+export function About() {
   return (
     <div className={styles.about}>
+      <Seo
+        title="About"
+        description={DESCRIPTION_CONFIG}
+        canonicalPath="/about"
+      />
       <PageHeader
         title={PAGE_HEADER_CONFIG.title}
         subtitle={PAGE_HEADER_CONFIG.subtitle}
@@ -28,6 +34,4 @@ const About = () => {
       </section>
     </div>
   );
-};
-
-export default About;
+}

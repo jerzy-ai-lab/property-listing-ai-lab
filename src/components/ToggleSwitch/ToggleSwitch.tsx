@@ -11,14 +11,14 @@ interface ToggleSwitchProps {
 }
 
 /* ToggleSwitch component */
-const ToggleSwitch = ({
+export function ToggleSwitch({
   checked,
   onChange,
   ariaLabel = "Toggle switch",
   ariaLabelledBy,
   disabled = false,
   id,
-}: ToggleSwitchProps) => {
+}: ToggleSwitchProps) {
   return (
     <label
       htmlFor={id}
@@ -41,6 +41,4 @@ const ToggleSwitch = ({
       </span>
     </label>
   );
-};
-
-export default ToggleSwitch;
+}

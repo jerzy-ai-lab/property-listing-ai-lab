@@ -1,7 +1,7 @@
-import Label from "@/components/Label/Label";
-import PasswordInput from "@/components/PasswordInput/PasswordInput";
-import FormError from "@/components/FormError/FormError";
-import Button from "@/components/Button/Button";
+import { Label } from "@/components/Label/Label";
+import { PasswordInput } from "@/components/PasswordInput/PasswordInput";
+import { FormError } from "@/components/FormError/FormError";
+import { Button } from "@/components/Button/Button";
 import type { useDeleteAccountForm } from "../../hooks/useDeleteAccountForm";
 import styles from "./DeleteAccountForm.module.css";
 
@@ -11,10 +11,10 @@ interface DeleteAccountFormProps {
 }
 
 /* DeleteAccountForm component */
-const DeleteAccountForm = ({
+export function DeleteAccountForm({
   deleteForm,
   onCancel,
-}: DeleteAccountFormProps) => {
+}: DeleteAccountFormProps) {
   return (
     <form className={styles.form} onSubmit={deleteForm.handleSubmit} noValidate>
       {!deleteForm.isGoogleUser && (
@@ -52,6 +52,4 @@ const DeleteAccountForm = ({
       </div>
     </form>
   );
-};
-
-export default DeleteAccountForm;
+}

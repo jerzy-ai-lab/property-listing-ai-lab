@@ -1,17 +1,18 @@
 import { PAGE_HEADER_CONFIG, SUCCESS_MESSAGE } from "./contactConfig";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import Label from "@/components/Label/Label";
-import Input from "@/components/Input/Input";
-import Textarea from "@/components/Textarea/Textarea";
-import Button from "@/components/Button/Button";
-import FormError from "@/components/FormError/FormError";
+import { Seo } from "@/components/Seo/Seo";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
+import { Label } from "@/components/Label/Label";
+import { Input } from "@/components/Input/Input";
+import { Textarea } from "@/components/Textarea/Textarea";
+import { Button } from "@/components/Button/Button";
+import { FormError } from "@/components/FormError/FormError";
 import { useContactForm } from "./hooks/useContactForm";
-import SuccessMessage from "@/components/SuccesMessage/SuccesMessage";
-import Toast from "@/components/Toast/Toast";
+import { SuccessMessage } from "@/components/SuccessMessage/SuccessMessage";
+import { Toast } from "@/components/Toast/Toast";
 import styles from "./Contact.module.css";
 
 /* Contact page component */
-const Contact = () => {
+export function Contact() {
   const {
     register,
     handleSubmit,
@@ -27,6 +28,11 @@ const Contact = () => {
 
   return (
     <div className={styles.contact}>
+      <Seo
+        title="Contact"
+        description="Get in touch with us. Send us a message and we'll get back to you as soon as possible."
+        canonicalPath="/contact"
+      />
       {/* === Error Toast === */}
       {error && (
         <Toast message={error} variant="error" onClose={() => setError(null)} />
@@ -150,6 +156,4 @@ const Contact = () => {
       </form>
     </div>
   );
-};
-
-export default Contact;
+}

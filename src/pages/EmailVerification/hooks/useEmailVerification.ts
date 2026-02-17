@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { emailVerification, getAuthErrorMessage } from "@/services/authService";
+import { emailVerification, getAuthErrorMessage } from "@/api/auth";
 import { useRedirectFrom } from "@/hooks/useRedirectFrom";
 
 export interface UseEmailVerificationReturn {

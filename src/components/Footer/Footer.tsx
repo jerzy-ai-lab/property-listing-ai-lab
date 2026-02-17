@@ -1,7 +1,7 @@
 import styles from "./Footer.module.css";
 
 /* Footer component */
-const Footer = () => {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -13,6 +13,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,12 +1,12 @@
 import { collection, addDoc } from "firebase/firestore";
 import { database } from "@/config/firebaseConfig";
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 import type { Property } from "@/types/property";
 
 const DATA_URL =
   "https://raw.githubusercontent.com/devchallenges-io/curriculum/refs/heads/main/4-frontend-libaries/challenges/group_1/data/property-listing-data.json";
 
-const PropertyImporter = () => {
+export function PropertyImporter() {
   // Import products from external API to Firestore
   const handleImport = async () => {
     try {
@@ -35,8 +35,6 @@ const PropertyImporter = () => {
       Import properties to Firestore
     </Button>
   );
-};
-
-export default PropertyImporter;
+}
 
 // Add this component to your main app or a specific page where you want to trigger the import. Use only once to avoid duplicate imports!

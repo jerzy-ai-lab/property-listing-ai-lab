@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { uploadUserImage } from "@/services/imageService";
-import { updateUserProfileImage } from "@/services/userService";
+import { uploadUserImage } from "@/api/images";
+import { updateUserProfileImage } from "@/api/users";
 
 export interface UseProfileImageUploadReturn {
   isUploading: boolean;

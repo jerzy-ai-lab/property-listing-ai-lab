@@ -7,8 +7,8 @@ import {
   signUp,
   signInWithGoogle,
   getAuthErrorMessage,
-} from "@/services/authService";
-import { createUserProfile } from "@/services/userService";
+} from "@/api/auth";
+import { createUserProfile } from "@/api/users";
 
 // Hook for sign up form
 export const useSignUpForm = () => {

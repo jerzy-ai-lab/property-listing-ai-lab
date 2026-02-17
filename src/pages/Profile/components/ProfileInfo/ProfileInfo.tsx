@@ -1,7 +1,7 @@
 import type { UserProfile } from "@/types/user";
 import { PROFILE_FIELDS } from "../../profileConfig";
 import { formatDate } from "@/utils/helpers";
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 import styles from "./ProfileInfo.module.css";
 
 interface ProfileInfoProps {
@@ -12,12 +12,12 @@ interface ProfileInfoProps {
 }
 
 /* ProfileInfo component */
-const ProfileInfo = ({
+export function ProfileInfo({
   userProfile,
   isIncomplete,
   onEditClick,
   onDeleteClick,
-}: ProfileInfoProps) => {
+}: ProfileInfoProps) {
   return (
     <>
       <ul className={styles.profileInfo}>
@@ -52,6 +52,4 @@ const ProfileInfo = ({
       </div>
     </>
   );
-};
-
-export default ProfileInfo;
+}

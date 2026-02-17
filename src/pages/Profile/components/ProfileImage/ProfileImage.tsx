@@ -10,7 +10,7 @@ interface ProfileImageProps {
 }
 
 /* ProfileImage component */
-const ProfileImage = ({ profileImageUpload }: ProfileImageProps) => {
+export function ProfileImage({ profileImageUpload }: ProfileImageProps) {
   const { isUploading, uploadImage: onImageUpload } = profileImageUpload;
   const { userProfile } = useUserProfile();
   const { fileInputRef, handleImageChange, handleImageButtonClick } =
@@ -47,6 +47,4 @@ const ProfileImage = ({ profileImageUpload }: ProfileImageProps) => {
       </button>
     </div>
   );
-};
-
-export default ProfileImage;
+}

@@ -12,7 +12,7 @@ interface IconCardProps {
 }
 
 /* IconCard component */
-const IconCard = ({ item }: IconCardProps) => {
+export function IconCard({ item }: IconCardProps) {
   const Icon = item.icon;
 
   return (
@@ -24,6 +24,4 @@ const IconCard = ({ item }: IconCardProps) => {
       <p className={styles.description}>{item.description}</p>
     </div>
   );
-};
-
-export default IconCard;
+}

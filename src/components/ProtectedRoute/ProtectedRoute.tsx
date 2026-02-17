@@ -1,13 +1,13 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "@/contexts/AuthContext";
-import Spinner from "../Spinner/Spinner";
+import { Spinner } from "../Spinner/Spinner";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 /* ProtectedRoute component */
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { user, isLoading } = useAuthContext();
   const location = useLocation();
 
@@ -34,6 +34,4 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }
 
   return children;
-};
-
-export default ProtectedRoute;
+}

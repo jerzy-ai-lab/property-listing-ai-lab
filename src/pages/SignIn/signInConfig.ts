@@ -1,13 +1,12 @@
+import type { SuccessMessageConfig } from "@/types/successMessage";
+
 /* SignIn page configuration */
 export type PageHeaderConfig = {
   title: string;
   subtitle: string;
 };
 
-export type SuccessMessageConfig = {
-  title: string;
-  message: string;
-};
+export type { SuccessMessageConfig };
 
 export type Link = {
   to: string;

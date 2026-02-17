@@ -10,16 +10,14 @@ interface FormErrorProps {
 }
 
 /* FormError component */
-const FormError = ({
+export function FormError({
   error,
   variant = "default",
   className,
-}: FormErrorProps) => {
+}: FormErrorProps) {
   return (
     <div className={clsx(styles.error, styles[variant], className)}>
       {error || ""}
     </div>
   );
-};
-
-export default FormError;
+}

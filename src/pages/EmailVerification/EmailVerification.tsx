@@ -1,20 +1,21 @@
 import { MailCheck } from "lucide-react";
+import { Seo } from "@/components/Seo/Seo";
 import {
   PAGE_HEADER_CONFIG,
   PAGE_SUBTITLE_CONFIG,
   EMAIL_SENT_MESSAGE,
   EMAIL_VERIFIED_MESSAGE,
 } from "./emailVerificationConfig";
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
 import { useEmailVerification } from "./hooks/useEmailVerification";
-import Button from "@/components/Button/Button";
-import Toast from "@/components/Toast/Toast";
-import SuccessMessage from "@/components/SuccesMessage/SuccesMessage";
-import Spinner from "@/components/Spinner/Spinner";
+import { Button } from "@/components/Button/Button";
+import { Toast } from "@/components/Toast/Toast";
+import { SuccessMessage } from "@/components/SuccessMessage/SuccessMessage";
+import { Spinner } from "@/components/Spinner/Spinner";
 import styles from "./EmailVerification.module.css";
 
 /* EmailVerification component */
-const EmailVerification = () => {
+export function EmailVerification() {
   const {
     handleResendVerificationEmail,
     isLoading,
@@ -31,6 +32,10 @@ const EmailVerification = () => {
 
   return (
     <div className={styles.emailVerification}>
+      <Seo
+        title="Email Verification"
+        description="Verify your email address to complete registration"
+      />
       {!emailVerified ? (
         <>
           {/* === Error Toast === */}
@@ -76,6 +81,4 @@ const EmailVerification = () => {
       )}
     </div>
   );
-};
-
-export default EmailVerification;
+}

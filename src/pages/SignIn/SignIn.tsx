@@ -1,23 +1,24 @@
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo/Seo";
 import {
   PAGE_HEADER_CONFIG,
   SUCCESS_MESSAGE,
   SIGN_IN_FORM_LINKS,
 } from "./signInConfig";
 import { useSignInForm } from "./hooks/useSignInForm";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import Label from "@/components/Label/Label";
-import Input from "@/components/Input/Input";
-import PasswordInput from "@/components/PasswordInput/PasswordInput";
-import Divider from "@/components/Divider/Divider";
-import Button from "@/components/Button/Button";
-import FormError from "@/components/FormError/FormError";
-import Toast from "@/components/Toast/Toast";
-import SuccessMessage from "@/components/SuccesMessage/SuccesMessage";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
+import { Label } from "@/components/Label/Label";
+import { Input } from "@/components/Input/Input";
+import { PasswordInput } from "@/components/PasswordInput/PasswordInput";
+import { Divider } from "@/components/Divider/Divider";
+import { Button } from "@/components/Button/Button";
+import { FormError } from "@/components/FormError/FormError";
+import { Toast } from "@/components/Toast/Toast";
+import { SuccessMessage } from "@/components/SuccessMessage/SuccessMessage";
 import styles from "./SignIn.module.css";
 
 /* SignIn page component */
-function SignIn() {
+export function SignIn() {
   const {
     register,
     handleSubmit,
@@ -30,6 +31,7 @@ function SignIn() {
   } = useSignInForm();
   return (
     <div className={styles.signIn}>
+      <Seo title="Sign In" description="Sign in to your account" />
       {/* === Error Toast === */}
       {error && (
         <Toast message={error} variant="error" onClose={() => setError(null)} />
@@ -104,5 +106,3 @@ function SignIn() {
     </div>
   );
 }
-
-export default SignIn;

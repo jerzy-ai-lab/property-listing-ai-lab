@@ -1,8 +1,8 @@
 import type { useEditProfileForm } from "../../hooks/useEditProfileForm";
-import Label from "@/components/Label/Label";
-import Input from "@/components/Input/Input";
-import FormError from "@/components/FormError/FormError";
-import Button from "@/components/Button/Button";
+import { Label } from "@/components/Label/Label";
+import { Input } from "@/components/Input/Input";
+import { FormError } from "@/components/FormError/FormError";
+import { Button } from "@/components/Button/Button";
 import styles from "./EditProfileForm.module.css";
 
 interface EditProfileFormProps {
@@ -11,7 +11,7 @@ interface EditProfileFormProps {
 }
 
 /* EditProfileForm component */
-const EditProfileForm = ({ editForm, onCancel }: EditProfileFormProps) => {
+export function EditProfileForm({ editForm, onCancel }: EditProfileFormProps) {
   return (
     <form onSubmit={editForm.handleSubmit} noValidate className={styles.form}>
       <div className={styles.formGroup}>
@@ -69,6 +69,4 @@ const EditProfileForm = ({ editForm, onCancel }: EditProfileFormProps) => {
       </div>
     </form>
   );
-};
-
-export default EditProfileForm;
+}

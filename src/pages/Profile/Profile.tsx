@@ -6,21 +6,21 @@ import {
   PAGE_HEADER_CONFIG,
   INCOMPLETE_PROFILE_MESSAGE,
 } from "./profileConfig";
-import Spinner from "@/components/Spinner/Spinner";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import ProfileImage from "./components/ProfileImage/ProfileImage";
-import ProfileInfo from "./components/ProfileInfo/ProfileInfo";
-import EmptyState from "@/components/EmptyState/EmptyState";
-import Toast from "@/components/Toast/Toast";
-import Modal from "@/components/Modal/Modal";
+import { Spinner } from "@/components/Spinner/Spinner";
+import { PageHeader } from "@/components/PageHeader/PageHeader";
+import { ProfileImage } from "./components/ProfileImage/ProfileImage";
+import { ProfileInfo } from "./components/ProfileInfo/ProfileInfo";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { Toast } from "@/components/Toast/Toast";
+import { Modal } from "@/components/Modal/Modal";
 import { useProfileModal } from "./hooks/useProfileModal";
 import { useDeleteAccountModal } from "./hooks/useDeleteAccountModal";
-import EditProfileForm from "./components/EditProfileForm/EditProfileForm";
-import DeleteAccountForm from "./components/DeleteAccountForm/DeleteAccountForm";
+import { EditProfileForm } from "./components/EditProfileForm/EditProfileForm";
+import { DeleteAccountForm } from "./components/DeleteAccountForm/DeleteAccountForm";
 import styles from "./Profile.module.css";
 
 /* Profile page component */
-const Profile = () => {
+export function Profile() {
   const { userProfile, isLoading, error, setError } = useUserProfile();
   const editForm = useEditProfileForm(userProfile);
   const deleteForm = useDeleteAccountForm();
@@ -106,6 +106,4 @@ const Profile = () => {
       </Modal>
     </div>
   );
-};
-
-export default Profile;
+}

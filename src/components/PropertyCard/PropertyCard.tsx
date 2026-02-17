@@ -26,7 +26,7 @@ interface PropertyCardProps {
 }
 
 /* PropertyCard component */
-const PropertyCard = ({ property }: PropertyCardProps) => {
+export function PropertyCard({ property }: PropertyCardProps) {
   const id = property.id;
   const image = property.image || fallbackImage;
   const title = property.title ?? "Untitled Property";
@@ -92,6 +92,4 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
       </Link>
     </li>
   );
-};
-
-export default PropertyCard;
+}

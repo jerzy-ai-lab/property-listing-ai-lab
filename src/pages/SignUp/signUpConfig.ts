@@ -1,13 +1,12 @@
+import type { SuccessMessageConfig } from "@/types/successMessage";
+
 /* SignUp page configuration */
 export type PageHeaderConfig = {
   title: string;
   subtitle: string;
 };
 
-export type SuccessMessageConfig = {
-  title: string;
-  message: string;
-};
+export type { SuccessMessageConfig };
 
 export const PAGE_HEADER_CONFIG: PageHeaderConfig = {
   title: "Sign Up",

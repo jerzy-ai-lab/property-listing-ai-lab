@@ -48,7 +48,7 @@ export const messageSchema = z
   .min(10, "Must be at least 10 characters long")
   .max(400, "Must be at most 400 characters");
 
-// Password schema
+// Password schema (for registration – full validation)
 export const passwordSchema = z
   .string()
   .min(8, "Must be at least 8 characters long")
@@ -57,6 +57,11 @@ export const passwordSchema = z
   .regex(/[a-z]/, "Must contain at least one lowercase letter")
   .regex(/[0-9]/, "Must contain at least one number")
   .regex(/[\W_]/, "Must contain at least one special character");
+
+// Sign-in password schema (only required – no complexity rules)
+export const signInPasswordSchema = z
+  .string()
+  .min(1, "Password is required");
 
 // Confirm password schema
 export const confirmPasswordSchema = z

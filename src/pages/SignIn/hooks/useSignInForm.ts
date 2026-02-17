@@ -7,9 +7,9 @@ import {
   signIn,
   getAuthErrorMessage,
   signInWithGoogle,
-} from "@/services/authService";
+} from "@/api/auth";
 import { useRedirectFrom } from "@/hooks/useRedirectFrom";
-import { createUserProfile } from "@/services/userService";
+import { createUserProfile } from "@/api/users";
 
 // Hook for sign in form
 export const useSignInForm = () => {

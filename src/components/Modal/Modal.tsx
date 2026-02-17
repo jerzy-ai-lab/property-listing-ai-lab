@@ -3,7 +3,7 @@ import { useEscapeKey } from "@/hooks/useEscapeKey";
 import { X } from "lucide-react";
 import clsx from "clsx";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 import styles from "./Modal.module.css";
 
 type ModalProps = {
@@ -15,7 +15,7 @@ type ModalProps = {
 };
 
 /* Modal component */
-const Modal = ({ isOpen, title, onClose, className, children }: ModalProps) => {
+export function Modal({ isOpen, title, onClose, className, children }: ModalProps) {
   useBodyScrollLock(isOpen, "scroll-lock");
 
   const handleBackdropClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -49,6 +49,4 @@ const Modal = ({ isOpen, title, onClose, className, children }: ModalProps) => {
       </div>
     </div>
   );
-};
-
-export default Modal;
+}

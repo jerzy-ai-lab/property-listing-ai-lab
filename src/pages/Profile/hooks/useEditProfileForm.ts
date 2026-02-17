@@ -5,7 +5,7 @@ import {
   editProfileFormSchema,
   type EditProfileFormData,
 } from "../editProfileFormSchema";
-import { updateUserProfile } from "@/services/userService";
+import { updateUserProfile } from "@/api/users";
 import { useAuthContext } from "@/contexts/AuthContext";
 import type { UserProfile } from "@/types/user";
 

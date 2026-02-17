@@ -1,7 +1,7 @@
 import { useState, forwardRef } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import clsx from "clsx";
-import Input from "@/components/Input/Input";
+import { Input } from "@/components/Input/Input";
 import styles from "./PasswordInput.module.css";
 
 interface PasswordInputProps
@@ -10,7 +10,7 @@ interface PasswordInputProps
 }
 
 /* PasswordInput component */
-const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
+export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   ({ className, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -45,5 +45,3 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 );
 
 PasswordInput.displayName = "PasswordInput";
-
-export default PasswordInput;
