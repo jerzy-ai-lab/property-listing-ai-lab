@@ -30,7 +30,6 @@ const SearchInput = ({
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && onSearch()}
         aria-label="AI Property Search"
-        aria-describedby="search-hint"
       />
       
       <Button
@@ -50,10 +49,6 @@ const SearchInput = ({
           </>
         )}
       </Button>
-      
-      <span id="search-hint" className="sr-only">
-        Enter a description of the property you are looking for. The AI will interpret your needs.
-      </span>
     </div>
   );
 };
