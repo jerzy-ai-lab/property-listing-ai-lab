@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { Footer } from "@/components/Footer/Footer";
 import styles from "./App.module.css";
-function App() {
+
+export function App() {
   return (
     <div className={styles.appWrapper}>
       <header>
@@ -17,5 +18,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
